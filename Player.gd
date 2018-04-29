@@ -16,7 +16,7 @@ func _ready():
 	$AnimationPlayer.play("Idle")
 	pass
 
-func _process(delta):
+func _physics_process(delta):
 	get_input(delta)
 	position_update()
 
@@ -52,20 +52,6 @@ func shot(dir):
 	bullet_proj.set_dir(direction)
 	bullet_proj.global_position = $Position2D.global_position
 	get_parent().add_child(bullet_proj)
-
-func draw_ellipse(center, radius, color):
-	var points = 32
-	var ellipse = PoolVector2Array()
-	var angle = 360/points
-	var colors = PoolColorArray([color])
-	
-	for i in range(points):
-		ellipse.push_back(center + Vector2(cos(deg2rad(angle*i)), sin(deg2rad(angle*i))/4) * radius)
-	draw_polygon(ellipse, colors)	
-	
-
-func _draw():
-	draw_ellipse(Vector2(0,26),40,Color(0,0,0,0.5))
 
 func animate(animation):
 	pass

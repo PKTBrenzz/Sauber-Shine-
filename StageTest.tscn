@@ -1,17 +1,18 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://StageTest.gd" type="Script" id=1]
 [ext_resource path="res://33618.png" type="Texture" id=2]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://enemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Fantasy Game Loop.wav" type="AudioStream" id=5]
+[ext_resource path="res://GameObject.gd" type="Script" id=3]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Fantasy Game Loop.wav" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 374 )
 
-[node name="StageTest" type="Node" index="0"]
+[node name="StageTest" type="Node"]
 
 script = ExtResource( 1 )
 
@@ -26,33 +27,37 @@ _sections_unfolded = [ "Region" ]
 
 [node name="GameObject" type="Node2D" parent="." index="1"]
 
-[node name="Player" parent="GameObject" index="0" instance=ExtResource( 3 )]
+script = ExtResource( 3 )
+
+[node name="Wander" type="Node2D" parent="GameObject" index="0"]
+
+[node name="Player" parent="GameObject/Wander" index="0" instance=ExtResource( 4 )]
 
 position = Vector2( 383, 442 )
 
-[node name="Enemy" parent="GameObject" index="1" instance=ExtResource( 4 )]
+[node name="Enemy" parent="GameObject/Wander" index="1" instance=ExtResource( 5 )]
 
 position = Vector2( 787, 428 )
 
-[node name="Enemy2" parent="GameObject" index="2" instance=ExtResource( 4 )]
+[node name="Enemy2" parent="GameObject/Wander" index="2" instance=ExtResource( 5 )]
 
 position = Vector2( 781, 535 )
 
-[node name="Enemy3" parent="GameObject" index="3" instance=ExtResource( 4 )]
+[node name="Enemy3" parent="GameObject/Wander" index="3" instance=ExtResource( 5 )]
 
 position = Vector2( 972, 467 )
 
-[node name="FirstRegion" type="Node2D" parent="GameObject" index="4"]
+[node name="FirstRegion" type="Node2D" parent="GameObject" index="1"]
 
-[node name="Enemy" parent="GameObject/FirstRegion" index="0" instance=ExtResource( 4 )]
+[node name="Enemy" parent="GameObject/FirstRegion" index="0" instance=ExtResource( 5 )]
 
 position = Vector2( 1396, 416 )
 
-[node name="Enemy2" parent="GameObject/FirstRegion" index="1" instance=ExtResource( 4 )]
+[node name="Enemy2" parent="GameObject/FirstRegion" index="1" instance=ExtResource( 5 )]
 
 position = Vector2( 1806, 459 )
 
-[node name="Enemy3" parent="GameObject/FirstRegion" index="2" instance=ExtResource( 4 )]
+[node name="Enemy3" parent="GameObject/FirstRegion" index="2" instance=ExtResource( 5 )]
 
 position = Vector2( 1630, 522 )
 
@@ -109,7 +114,7 @@ position = Vector2( 1623, 326 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="5"]
 
-stream = ExtResource( 5 )
+stream = ExtResource( 6 )
 volume_db = -15.0
 autoplay = true
 mix_target = 0

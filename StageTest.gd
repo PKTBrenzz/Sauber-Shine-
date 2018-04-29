@@ -17,10 +17,10 @@ func _ready():
 	pass
 
 func _process(delta):
-	$GameObject/Player.global_position.x = clamp($GameObject/Player.global_position.x, $Pivot.global_position.x - screen_size.x/2, $Pivot.global_position.x + screen_size.x/2)
+	$GameObject/Wander/Player.global_position.x = clamp($GameObject/Wander/Player.global_position.x, $Pivot.global_position.x - screen_size.x/2, $Pivot.global_position.x + screen_size.x/2)
 	
 	if currentstage == stage.WANDER:
-		$Pivot.global_position = $GameObject/Player.global_position
+		$Pivot.global_position = $GameObject/Wander/Player.global_position
 	elif currentstage == stage.FIRSTREG:
 		$Pivot.global_position = $FirstRegion.global_position
 		if $GameObject/FirstRegion.get_children().size() == 0:

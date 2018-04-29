@@ -20,7 +20,7 @@ extents = Vector2( 32, 8 )
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 14, 10 )
+extents = Vector2( 24, 14 )
 
 [sub_resource type="Animation" id=4]
 
@@ -112,7 +112,7 @@ audio_bus_name = "Master"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 
 modulate = Color( 0.148438, 1, 0, 1 )
-position = Vector2( 42, 24 )
+position = Vector2( 32, 25 )
 shape = SubResource( 3 )
 _sections_unfolded = [ "Material", "Visibility" ]
 
