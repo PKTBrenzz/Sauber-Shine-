@@ -31,3 +31,4 @@ func _process(delta):
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player"):
 		currentstage = stage.FIRSTREG
+		$Region/Area2D/CollisionShape2D.disabled = true

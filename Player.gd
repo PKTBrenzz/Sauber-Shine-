@@ -33,7 +33,7 @@ func get_input(delta):
 	elif Input.is_action_pressed("ui_up"):
 		move(Vector2(0,-MOVESPEEDY) * delta)
 	
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("attack"):
 		$AnimationPlayer.play("Hit")
 	
 	if Input.is_action_just_pressed("shot"):
