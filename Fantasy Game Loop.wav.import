@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Fantasy Game Loop.wav-bc98c742763af7a743d25e2e35dccef1.sample"
+
+[deps]
+
+source_file="res://Fantasy Game Loop.wav"
+source_md5="d47de9120a4b2333abca2bae1be3d92b"
+
+dest_files=[ "res://.import/Fantasy Game Loop.wav-bc98c742763af7a743d25e2e35dccef1.sample" ]
+dest_md5="da6b0e5f5790ce570defa169d17353f5"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=true
+compress/mode=0

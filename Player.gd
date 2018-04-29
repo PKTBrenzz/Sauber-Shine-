@@ -5,13 +5,15 @@ const bullet = preload("res://bullet.tscn")
 const MOVESPEEDX = 300
 const MOVESPEEDY = 200
 
+enum state {IDLE, MOVE}
+
 var current_position = Vector3()
 var is_grounded = true
 var direction = 1
+var anim
 
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
+	$AnimationPlayer.play("Idle")
 	pass
 
 func _process(delta):
@@ -31,10 +33,8 @@ func get_input(delta):
 	elif Input.is_action_pressed("ui_up"):
 		move(Vector2(0,-MOVESPEEDY) * delta)
 	
-	if Input.is_action_pressed("ui_accept"):
-		$Area2D.monitoring = true
-	else:
-		$Area2D.monitoring = false
+	if Input.is_action_just_pressed("ui_accept"):
+		$AnimationPlayer.play("Hit")
 	
 	if Input.is_action_just_pressed("shot"):
 		shot(direction)
@@ -43,11 +43,8 @@ func move(dir):
 	global_position += dir
 
 func position_update():
-	if global_position.y < 350:
-		global_position.y = 350
-	elif global_position.y > get_viewport().get_visible_rect().size.y - 50:
-		global_position.y = get_viewport().get_visible_rect().size.y - 50
-	
+	global_position.y = clamp(global_position.y,300,get_viewport().get_visible_rect().size.y - 50)
+	scale.x = direction
 	z_index = global_position.y
 
 func shot(dir):
@@ -70,6 +67,16 @@ func draw_ellipse(center, radius, color):
 func _draw():
 	draw_ellipse(Vector2(0,26),40,Color(0,0,0,0.5))
 
+func animate(animation):
+	pass
+
 func _on_Area2D_area_entered( area ):
 	if area.is_in_group("Enemy"):
-		print("HIT")
+		area.take_damage()
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	print("Yes")
+	if anim_name == "Hit":
+		print("finished")
+		$AnimationPlayer.play("Idle")

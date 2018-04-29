@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://StageTest.gd" type="Script" id=1]
 [ext_resource path="res://33618.png" type="Texture" id=2]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Fantasy Game Loop.wav" type="AudioStream" id=5]
 
-[node name="StageTest" type="Node" index="0"]
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 374 )
+
+[node name="StageTest" type="Node"]
 
 script = ExtResource( 1 )
 
@@ -15,17 +21,100 @@ position = Vector2( 796, 305 )
 scale = Vector2( 2.09414, 2.09414 )
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 2000, 0, 1000, 350 )
+region_rect = Rect2( 1000, 0, 2000, 350 )
 _sections_unfolded = [ "Region" ]
 
 [node name="GameObject" type="Node2D" parent="." index="1"]
 
-[node name="Area2D" parent="GameObject" index="0" instance=ExtResource( 3 )]
+[node name="Player" parent="GameObject" index="0" instance=ExtResource( 3 )]
 
-position = Vector2( 378, 482 )
+position = Vector2( 383, 442 )
 
-[node name="Area2D2" parent="GameObject" index="1" instance=ExtResource( 4 )]
+[node name="Enemy" parent="GameObject" index="1" instance=ExtResource( 4 )]
 
-position = Vector2( 761, 495 )
+position = Vector2( 787, 428 )
+
+[node name="Enemy2" parent="GameObject" index="2" instance=ExtResource( 4 )]
+
+position = Vector2( 781, 535 )
+
+[node name="Enemy3" parent="GameObject" index="3" instance=ExtResource( 4 )]
+
+position = Vector2( 972, 467 )
+
+[node name="FirstRegion" type="Node2D" parent="GameObject" index="4"]
+
+[node name="Enemy" parent="GameObject/FirstRegion" index="0" instance=ExtResource( 4 )]
+
+position = Vector2( 1396, 416 )
+
+[node name="Enemy2" parent="GameObject/FirstRegion" index="1" instance=ExtResource( 4 )]
+
+position = Vector2( 1806, 459 )
+
+[node name="Enemy3" parent="GameObject/FirstRegion" index="2" instance=ExtResource( 4 )]
+
+position = Vector2( 1630, 522 )
+
+[node name="Region" type="Node2D" parent="." index="2"]
+
+[node name="Area2D" type="Area2D" parent="Region" index="0"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Region/Area2D" index="0"]
+
+position = Vector2( 1263, 311 )
+shape = SubResource( 1 )
+
+[node name="Pivot" type="Position2D" parent="." index="3"]
+
+_sections_unfolded = [ "Transform" ]
+
+[node name="Camera2D" type="Camera2D" parent="Pivot" index="0"]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+smoothing_speed = 10.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.0
+drag_margin_top = 0.2
+drag_margin_right = 0.0
+drag_margin_bottom = 0.2
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = true
+_sections_unfolded = [ "Drag Margin", "Editor", "Smoothing" ]
+
+[node name="FirstRegion" type="Position2D" parent="." index="4"]
+
+position = Vector2( 1623, 326 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="5"]
+
+stream = ExtResource( 5 )
+volume_db = -15.0
+autoplay = true
+mix_target = 0
+bus = "Master"
+
+[connection signal="area_entered" from="Region/Area2D" to="." method="_on_Area2D_area_entered"]
 
 

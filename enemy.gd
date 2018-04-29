@@ -5,8 +5,7 @@ extends Area2D
 # var b = "textvar"
 
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
+	$AnimationPlayer.play("Idle")
 	pass
 
 func _process(delta):
@@ -21,6 +20,10 @@ func position_update():
 	
 	z_index = global_position.y
 
+func take_damage():
+	$AnimationPlayer.play("Hitted")
+	$CollisionShape2D.disabled = true
+
 func draw_ellipse(center, radius, color):
 	var points = 32
 	var ellipse = PoolVector2Array()
@@ -34,3 +37,7 @@ func draw_ellipse(center, radius, color):
 
 func _draw():
 	draw_ellipse(Vector2(0,26),40,Color(0,0,0,0.5))
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "Hitted":
+		queue_free()
